@@ -1,3 +1,5 @@
+import lugares.*
+
 object paquete {
 	var precio = 150
 	var estaPago = false
@@ -16,17 +18,5 @@ object paquete {
 	}
 	method marcarComoPago() {
 		estaPago = true
-	}
-}
-
-object puenteDeBrooklyn {
-	method costoDeEnvio() {
-		return 150
-	}
-}
-
-object laMatrix {
-	method costoDeEnvio() {
-		return 500
 	}
 }

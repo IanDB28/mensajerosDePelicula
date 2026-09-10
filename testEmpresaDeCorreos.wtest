@@ -1,4 +1,5 @@
-import empresaDeCorreos.*
+import paquete.*
+import lugares.*
 
 describe "Test de paquete" {
     test "Al inicio el precio del paquete es de 150 porque su destino es el puente de Brooklyn" {
