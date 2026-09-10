@@ -1,0 +1,21 @@
+import empresaDeCorreos.*
+
+describe "Test de paquete" {
+    test "Al inicio el precio del paquete es de 150 porque su destino es el puente de Brooklyn" {
+        assert.equals(150, paquete.precio())
+    }
+
+    test "El precio del paquete es de 500 al cambiar su destino a la Matrix" {
+        paquete.cambiarDestino(laMatrix)
+        assert.equals(500, paquete.precio())
+    }
+
+    test "Al inicio el paquete no está pago" {
+        assert.notThat(paquete.estaPago())
+    }
+
+    test "Al marcar el paquete como pago, este queda pago" {
+        paquete.marcarComoPago()
+        assert.that(paquete.estaPago())
+    }
+}
