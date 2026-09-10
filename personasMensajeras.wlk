@@ -33,8 +33,7 @@ object neo {
 object saraConnor {
     var peso = 65
     var vehiculoActual = moto
-    var tieneCreditoEnElCelular = true
-
+    
     method pesoTotal() {
         return peso + vehiculoActual.peso() 
     }
@@ -43,5 +42,8 @@ object saraConnor {
     }
     method cambiarPesoPropio(nuevoPeso) {
         peso = nuevoPeso
+    }
+    method cambiarVehiculo(nuevoVehiculo) {
+        vehiculoActual = nuevoVehiculo
     }
 }
