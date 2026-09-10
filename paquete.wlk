@@ -19,4 +19,7 @@ object paquete {
 	method marcarComoPago() {
 		estaPago = true
 	}
+	method puedeSerEntregado() {
+		return estaPago
+	}
 }

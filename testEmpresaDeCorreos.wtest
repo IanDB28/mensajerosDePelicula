@@ -19,4 +19,13 @@ describe "Test de paquete" {
         paquete.marcarComoPago()
         assert.that(paquete.estaPago())
     }
+
+    test "Si el paquete no está pago no puede ser entregado" {
+        assert.notThat(paquete.puedeSerEntregado())
+    }
+
+    test "Si el paquete está pago puede ser entregado" {
+        paquete.marcarComoPago()
+        assert.that(paquete.puedeSerEntregado())
+    }
 }
