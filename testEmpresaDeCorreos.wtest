@@ -1,3 +1,5 @@
+import vehiculos.*
+import personasMensajeras.*
 import paquete.*
 import lugares.*
 
@@ -27,5 +29,51 @@ describe "Test de paquete" {
     test "Si el paquete está pago puede ser entregado" {
         paquete.marcarComoPago()
         assert.that(paquete.puedeSerEntregado())
+    }
+}
+
+describe "Test de entregas de paquetes" {
+    test "Si el paquete no está pago, no puede ser llevado por Neo a la Matrix" {
+        paquete.cambiarDestino(laMatrix)
+        assert.notThat(paquete.puedeSerEntregadoASuDestinoPor(neo))
+    }
+
+    test "Si el paquete está pago, puede ser llevado por Neo a la Matrix" {
+        paquete.cambiarDestino(laMatrix)
+        paquete.marcarComoPago()
+        assert.that(paquete.puedeSerEntregadoASuDestinoPor(neo))
+    }
+
+    test "Si el paquete está pago, puede ser llevado por Jean a la Matrix" {
+        paquete.cambiarDestino(laMatrix)
+        paquete.marcarComoPago()
+        assert.that(paquete.puedeSerEntregadoASuDestinoPor(jeanGray))
+    }
+
+    test "Si el paquete está pago, puede ser llevado por Sara al puente de Brooklyn" {
+        paquete.marcarComoPago()
+        assert.that(paquete.puedeSerEntregadoASuDestinoPor(saraConnor))
+    }
+
+    test "El paquete que está pago no puede ser llevado por Sara (quien pesa 70kg) al puente de Brooklyn si utiliza un camión con un acoplado" {
+        paquete.marcarComoPago()
+        saraConnor.cambiarPesoPropio(70)
+        saraConnor.cambiarVehiculo(camion)
+        camion.agregarAcoplado()
+        assert.notThat(paquete.puedeSerEntregadoASuDestinoPor(saraConnor))
+    }
+
+    test "El paquete que está pago puede ser llevado por Sara (quien pesa 70kg) al puente de Brooklyn si utiliza un camión sin acoplado" {
+        paquete.marcarComoPago()
+        saraConnor.cambiarPesoPropio(70)
+        saraConnor.cambiarVehiculo(camion)
+        assert.that(paquete.puedeSerEntregadoASuDestinoPor(saraConnor))
+    }
+
+    test "El paquete que está pago puede ser llevado por Sara (quien pesa 70kg) al puente de Brooklyn si utiliza una moto" {
+        paquete.marcarComoPago()
+        saraConnor.cambiarPesoPropio(70)
+        saraConnor.cambiarVehiculo(moto)
+        assert.that(paquete.puedeSerEntregadoASuDestinoPor(saraConnor))
     }
 }

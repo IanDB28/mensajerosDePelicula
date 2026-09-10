@@ -22,4 +22,7 @@ object paquete {
 	method puedeSerEntregado() {
 		return estaPago
 	}
+	method puedeSerEntregadoASuDestinoPor(unaPersonaMensajera) {
+		return self.puedeSerEntregado() && destino.dejaPasarA(unaPersonaMensajera)
+	}
 }
