@@ -3,7 +3,7 @@ object puenteDeBrooklyn {
 		return 150
 	}
     method dejaPasarA(unaPersonaMensajera) {
-        return unaPersonaMensajera.pesoTotal() < 1000 
+        return unaPersonaMensajera.peso() < 1000 
     }
 }
 

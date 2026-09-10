@@ -5,7 +5,7 @@ object jeanGray {
     const tienePoderesTelequinesicos = true
     const peso = 65
 
-    method pesoTotal() {
+    method peso() {
         return peso
     }
     method puedeLlamar() {
@@ -19,7 +19,7 @@ object neo {
     const tieneCelular = true
     var tieneCreditoEnElCelular = true
 
-    method pesoTotal() {
+    method peso() {
         return peso
     }
     method puedeLlamar() {
@@ -34,7 +34,10 @@ object saraConnor {
     var peso = 65
     var vehiculoActual = moto
     
-    method pesoTotal() {
+    method pesoPropio() {
+        return peso
+    }
+    method peso() {
         return peso + vehiculoActual.peso() 
     }
     method puedeLlamar() {

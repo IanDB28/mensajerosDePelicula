@@ -77,3 +77,50 @@ describe "Test de entregas de paquetes" {
         assert.that(paquete.puedeSerEntregadoASuDestinoPor(saraConnor))
     }
 }
+
+describe "Test de personas mensajeras" {
+    test "Neo no puede llamar si se quedó sin credito en el celular" {
+        neo.agotarCreditoDelCelular()
+        assert.notThat(neo.puedeLlamar())
+    }
+    
+    test "La matrix no deja entrar a Neo si se quedó sin credito en el celular porque no puede llamar" {
+        neo.agotarCreditoDelCelular()
+        assert.notThat(laMatrix.dejaPasarA(neo))
+    }
+
+    test "Al principio Sara Connor tiene un peso propio de 65 kilos" {
+        assert.equals(65, saraConnor.pesoPropio())
+    }
+
+    test "Sara Connor con su moto pesa 165 kilos" {
+        assert.equals(165, saraConnor.peso())
+    }
+
+    test "Si Sara Connor tiene un peso propio de 75 kilos, con su moto pesa 175 kilos" {
+        saraConnor.cambiarPesoPropio(75)
+        assert.equals(175, saraConnor.peso())
+    }
+
+    test "Si Sara Connor tiene un peso propio de 72 kilos, con su camion pesa 572 kilos" {
+        saraConnor.cambiarPesoPropio(72)
+        saraConnor.cambiarVehiculo(camion)
+        assert.equals(572, saraConnor.peso())
+    }
+
+    test "Si Sara Connor tiene un peso propio de 72 kilos, con su camion que tiene 2 acoplados pesa 1572 kilos" {
+        saraConnor.cambiarPesoPropio(72)
+        saraConnor.cambiarVehiculo(camion)
+        camion.agregarAcoplado()
+        camion.agregarAcoplado()
+        assert.equals(1572, saraConnor.peso())
+    }
+
+    test "Sara Connor nunca puede llamar" {
+        assert.notThat(saraConnor.puedeLlamar())
+    }
+
+    test "Jean Gray siempre puede llamar" {
+        assert.that(jeanGray.puedeLlamar())
+    }
+}
