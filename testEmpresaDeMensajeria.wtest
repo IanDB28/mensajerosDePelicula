@@ -1,6 +1,6 @@
 import vehiculos.*
 import personasMensajeras.*
-import paquete.*
+import paquetes.*
 import lugares.*
 import empresaDeMensajeria.*
 
