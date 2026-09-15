@@ -1,0 +1,39 @@
+import vehiculos.*
+import personasMensajeras.*
+import paquete.*
+import lugares.*
+import empresaDeMensajeria.*
+
+describe "Test de empresa de mensajeria" {
+    test "Si contrato a Neo como mensajero está primero en la lista" {
+        empresaDeMensajeria.contratarAPersonaMensajera(neo)
+        assert.equals(neo, empresaDeMensajeria.primeraPersonaMensajera())
+    }
+
+    test "Si despido a Neo la lista queda vacía" {
+        empresaDeMensajeria.contratarAPersonaMensajera(neo)
+        empresaDeMensajeria.despedirAPersonaMensajera(neo)
+        assert.that(empresaDeMensajeria.noTienePersonasEmpleadas())
+    }
+
+    test "Si despido a todas las personas mensajeras la lista queda vacía" {
+        empresaDeMensajeria.contratarAPersonaMensajera(neo)
+        empresaDeMensajeria.contratarAPersonaMensajera(saraConnor)
+        empresaDeMensajeria.contratarAPersonaMensajera(jeanGray)
+        empresaDeMensajeria.despedirATodasLasPersonasMensajeras()
+        assert.that(empresaDeMensajeria.noTienePersonasEmpleadas())
+    }
+
+    test "Si tiene 2 personas empleadas la empresa no es grande" {
+        empresaDeMensajeria.contratarAPersonaMensajera(neo)
+        empresaDeMensajeria.contratarAPersonaMensajera(saraConnor)
+        assert.notThat(empresaDeMensajeria.esGrande())
+    }
+
+    test "Si tiene al menos 3 personas empleadas la empresa es grande" {
+        empresaDeMensajeria.contratarAPersonaMensajera(neo)
+        empresaDeMensajeria.contratarAPersonaMensajera(saraConnor)
+        empresaDeMensajeria.contratarAPersonaMensajera(jeanGray)
+        assert.that(empresaDeMensajeria.esGrande())
+    }
+}
