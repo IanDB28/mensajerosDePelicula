@@ -8,7 +8,7 @@ Se necesita poder:
 2. Despedir a un mensajero  
 3. Despedir a todos los mensajeros  
 4. Analizar si la mensajeria es grande (si tiene mas de dos mensajeros)  
-5. Consultar si el paquete puede ser entregado por el primer empleado de la la empresa de mensajería.  
+5. Consultar si el paquete puede ser entregado por el primer empleado de la empresa de mensajería.  
 6. Saber el peso del último mensajero de la empresa.  
 7. Hacer al menos un test por cada punto de los anteriores que demuestren su correcto funcionamiento.
 

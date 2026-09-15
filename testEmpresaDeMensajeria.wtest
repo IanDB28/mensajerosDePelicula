@@ -36,4 +36,16 @@ describe "Test de empresa de mensajeria" {
         empresaDeMensajeria.contratarAPersonaMensajera(jeanGray)
         assert.that(empresaDeMensajeria.esGrande())
     }
+
+    test "El paquete puede ser entregado por el primer empleado de la empresa de mensajería, es decir Neo" {
+        empresaDeMensajeria.contratarAPersonaMensajera(neo)
+        paquete.marcarComoPago()
+        assert.that(paquete.puedeSerEntregadoASuDestinoPor(empresaDeMensajeria.primeraPersonaMensajera()))
+    }
+
+    test "Puedo consultar el peso de la ultima persona mensajera empleada, en este caso Jean Gray" {
+        empresaDeMensajeria.contratarAPersonaMensajera(neo)
+        empresaDeMensajeria.contratarAPersonaMensajera(jeanGray)
+        assert.equals(65, empresaDeMensajeria.ultimaPersonaMensajera().peso())
+    }
 }

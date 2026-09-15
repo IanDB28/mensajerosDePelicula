@@ -21,6 +21,10 @@ object empresaDeMensajeria {
         return listaDePersonasMensajeras.first()
     }
 
+    method ultimaPersonaMensajera() {
+        return listaDePersonasMensajeras.last()
+    }
+
     method noTienePersonasEmpleadas() {
         return listaDePersonasMensajeras.isEmpty()
     }
