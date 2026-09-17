@@ -28,17 +28,14 @@ object paquete {
 }
 
 object paquetito {
-	var precio = 0
-	const estaPago = true
 	var destino = puenteDeBrooklyn
 
 	method precio() {
-		return precio
+		return 0
 	}
 
 	method cambiarDestino(destinoNuevo) {
 		destino = destinoNuevo
-		precio = destinoNuevo.costoDeEnvio()
 	}
 	method puedeSerEntregadoASuDestinoPor(unaPersonaMensajera) {
 		return true
@@ -47,25 +44,25 @@ object paquetito {
 
 object paquetonViajero {
 	const listaDeDestinos = []
-	var cantidadPagado = 0
+	var cantidadPagada = 0
 
 	method precio() {
 		return listaDeDestinos.size() * 100
 	}
 	method estaPago() {
-		return cantidadPagado >= self.precio()
+		return cantidadPagada >= self.precio()
 	}
 
 	method agregarDestino(destinoNuevo) {
 		listaDeDestinos.add(destinoNuevo)
 	}
 	method pagar(unaCantidadAPagar) {
-		cantidadPagado += unaCantidadAPagar
+		cantidadPagada += unaCantidadAPagar
 	}
 	method puedeSerEntregado() {
 		return self.estaPago()
 	}
 	method puedeSerEntregadoASusDestinosPor(unaPersonaMensajera) {
-		// TO DO: llenar este metodo 
+		return self.puedeSerEntregado() && listaDeDestinos.all{ destino => destino.dejaPasarA(unaPersonaMensajera)}
 	}
 }

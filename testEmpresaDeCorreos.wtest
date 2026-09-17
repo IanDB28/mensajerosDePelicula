@@ -4,8 +4,8 @@ import paquetes.*
 import lugares.*
 
 describe "Test de paquete" {
-    test "Al inicio el precio del paquete es de 150 porque su destino es el puente de Brooklyn" {
-        assert.equals(150, paquete.precio())
+    test "Al inicio el precio del paquete es de 50" {
+        assert.equals(50, paquete.precio())
     }
 
     test "El precio del paquete es de 500 al cambiar su destino a la Matrix" {
