@@ -22,7 +22,7 @@ object paquete {
 	method puedeSerEntregado() {
 		return estaPago
 	}
-	method puedeSerEntregadoASuDestinoPor(unaPersonaMensajera) {
+	method puedeSerEntregadoPor(unaPersonaMensajera) {
 		return self.puedeSerEntregado() && destino.dejaPasarA(unaPersonaMensajera)
 	}
 }
@@ -37,7 +37,7 @@ object paquetito {
 	method cambiarDestino(destinoNuevo) {
 		destino = destinoNuevo
 	}
-	method puedeSerEntregadoASuDestinoPor(unaPersonaMensajera) {
+	method puedeSerEntregadoPor(unaPersonaMensajera) {
 		return true
 	}
 }
@@ -62,7 +62,7 @@ object paquetonViajero {
 	method puedeSerEntregado() {
 		return self.estaPago()
 	}
-	method puedeSerEntregadoASusDestinosPor(unaPersonaMensajera) {
+	method puedeSerEntregadoPor(unaPersonaMensajera) {
 		return self.puedeSerEntregado() && listaDeDestinos.all{ destino => destino.dejaPasarA(unaPersonaMensajera)}
 	}
 }

@@ -40,7 +40,7 @@ describe "Test de empresa de mensajeria" {
     test "El paquete puede ser entregado por el primer empleado de la empresa de mensajería, es decir Neo" {
         empresaDeMensajeria.contratarAPersonaMensajera(neo)
         paquete.marcarComoPago()
-        assert.that(paquete.puedeSerEntregadoASuDestinoPor(empresaDeMensajeria.primeraPersonaMensajera()))
+        assert.that(paquete.puedeSerEntregadoPor(empresaDeMensajeria.primeraPersonaMensajera()))
     }
 
     test "Puedo consultar el peso de la ultima persona mensajera empleada, en este caso Jean Gray" {
@@ -58,7 +58,7 @@ describe "Test de los nuevos tipos de paquetes" {
 
     test "Cualquier persona mensajera puede mandar un paquetito sin importar su destino" {
         paquete.cambiarDestino(laMatrix)
-        assert.that(paquetito.puedeSerEntregadoASuDestinoPor(saraConnor))
+        assert.that(paquetito.puedeSerEntregadoPor(saraConnor))
     }
 
     test "Si el paqueton viajero tiene 1 destino su precio es de 100$" {
@@ -93,26 +93,26 @@ describe "Test de los nuevos tipos de paquetes" {
     test "Se puede enviar el paqueton viajero si esta totalmente pago" {
         paquetonViajero.agregarDestino(laMatrix)
         paquetonViajero.pagar(150)
-        assert.that(paquetonViajero.puedeSerEntregadoASusDestinosPor(neo))
+        assert.that(paquetonViajero.puedeSerEntregadoPor(neo))
     }
 
     test "No se puede enviar el paqueton viajero si no esta totalmente pago" {
         paquetonViajero.agregarDestino(laMatrix)
         paquetonViajero.pagar(50)
-        assert.notThat(paquetonViajero.puedeSerEntregadoASusDestinosPor(neo))
+        assert.notThat(paquetonViajero.puedeSerEntregadoPor(neo))
     }
 
     test "La persona mensajera debe poder pasar por todos los destinos para entregarlo" {
         paquetonViajero.agregarDestino(puenteDeBrooklyn)
         paquetonViajero.agregarDestino(laMatrix)
         paquetonViajero.pagar(200)
-        assert.that(paquetonViajero.puedeSerEntregadoASusDestinosPor(neo))
+        assert.that(paquetonViajero.puedeSerEntregadoPor(neo))
     }
 
     test "Si la persona mensajera no puede pasar por uno de sus destinos no puede entregarlo" {
         paquetonViajero.agregarDestino(puenteDeBrooklyn)
         paquetonViajero.agregarDestino(laMatrix)
         paquetonViajero.pagar(200)
-        assert.notThat(paquetonViajero.puedeSerEntregadoASusDestinosPor(saraConnor))
+        assert.notThat(paquetonViajero.puedeSerEntregadoPor(saraConnor))
     }
 }
