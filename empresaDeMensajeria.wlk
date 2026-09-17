@@ -28,4 +28,8 @@ object empresaDeMensajeria {
     method noTienePersonasEmpleadas() {
         return listaDePersonasMensajeras.isEmpty()
     }
+
+    method algunaPersonaMensajeraPuedeEntregar(unPaquete) {
+        return listaDePersonasMensajeras.any { unaPersonaMensajera => unPaquete.puedeSerEntregadoPor(unaPersonaMensajera) }
+    }
 }

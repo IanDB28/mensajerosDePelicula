@@ -116,3 +116,21 @@ describe "Test de los nuevos tipos de paquetes" {
         assert.notThat(paquetonViajero.puedeSerEntregadoPor(saraConnor))
     }
 }
+
+describe "Test de mensajeria recargada" {
+    test "Alguna de las personas mensajeras de la empresa puede entregar el paquete de la Matrix" {
+        paquete.cambiarDestino(laMatrix)
+        paquete.marcarComoPago()
+        empresaDeMensajeria.contratarAPersonaMensajera(neo)
+        empresaDeMensajeria.contratarAPersonaMensajera(saraConnor)
+        assert.that(empresaDeMensajeria.algunaPersonaMensajeraPuedeEntregar(paquete))
+    }
+
+    test "Si ninguna persona mensajera de la empresa puede pasar por el destino no hay ninguna" {
+        paquete.cambiarDestino(laMatrix)
+        paquete.marcarComoPago()
+        empresaDeMensajeria.contratarAPersonaMensajera(saraConnor)
+        assert.notThat(empresaDeMensajeria.algunaPersonaMensajeraPuedeEntregar(paquete))
+    }
+
+}
