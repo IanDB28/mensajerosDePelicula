@@ -1,8 +1,6 @@
 import vehiculos.*
 
 object jeanGray {
-    const tienePoderesTelepáticos = true
-    const tienePoderesTelequinesicos = true
     const peso = 65
 
     method peso() {
@@ -14,9 +12,7 @@ object jeanGray {
 }
 
 object neo {
-    const puedeVolar = true
     const peso = 0
-    const tieneCelular = true
     var tieneCreditoEnElCelular = true
 
     method peso() {

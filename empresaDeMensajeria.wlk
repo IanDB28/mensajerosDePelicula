@@ -32,4 +32,15 @@ object empresaDeMensajeria {
     method algunaPersonaMensajeraPuedeEntregar(unPaquete) {
         return listaDePersonasMensajeras.any { unaPersonaMensajera => unPaquete.puedeSerEntregadoPor(unaPersonaMensajera) }
     }
+
+    method personasMensajerasQuePuedenEntregar(unPaquete) {
+        return listaDePersonasMensajeras.filter { unaPersonaMensajera => unPaquete.puedeSerEntregadoPor(unaPersonaMensajera) }
+    }
+
+    method tieneSobrepeso() {
+        const pesoPromedio = listaDePersonasMensajeras.average{ unaPersonaMensajera => unaPersonaMensajera.peso() }
+        return pesoPromedio > 500
+    }
+
+
 }

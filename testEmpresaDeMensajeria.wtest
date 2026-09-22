@@ -133,4 +133,33 @@ describe "Test de mensajeria recargada" {
         assert.notThat(empresaDeMensajeria.algunaPersonaMensajeraPuedeEntregar(paquete))
     }
 
+    test "Se puede obtener la lista de personas mensajeras que pueden entregar un paquete dado" {
+        paquete.cambiarDestino(laMatrix)
+        paquete.marcarComoPago()
+        empresaDeMensajeria.contratarAPersonaMensajera(neo)
+        empresaDeMensajeria.contratarAPersonaMensajera(saraConnor)
+        empresaDeMensajeria.contratarAPersonaMensajera(jeanGray)
+        assert.equals([neo, jeanGray], empresaDeMensajeria.personasMensajerasQuePuedenEntregar(paquete))
+    }
+
+    test "Se puede obtener la lista de personas mensajeras que pueden entregar un paquete dado y si no hay es una lista vacía" {
+        paquete.cambiarDestino(laMatrix)
+        paquete.marcarComoPago()
+        empresaDeMensajeria.contratarAPersonaMensajera(saraConnor)
+        assert.equals([], empresaDeMensajeria.personasMensajerasQuePuedenEntregar(paquete))
+    }
+
+    test "Se puede averiguar si la empresa de mensajeria tiene sobrepeso (sus personas empleadas pesan en promedio mas de 500 kg)" {
+        saraConnor.cambiarVehiculo(camion)
+        empresaDeMensajeria.contratarAPersonaMensajera(saraConnor)
+        assert.that(empresaDeMensajeria.tieneSobrepeso())
+    }
+
+    test "La empresa de mensajeria no tiene sobrepeso si en promedio sus personas empleadas pesan menos de 500 kg" {
+        empresaDeMensajeria.contratarAPersonaMensajera(saraConnor)
+        empresaDeMensajeria.contratarAPersonaMensajera(neo)
+        empresaDeMensajeria.contratarAPersonaMensajera(jeanGray)
+        assert.notThat(empresaDeMensajeria.tieneSobrepeso())
+    }
+
 }
