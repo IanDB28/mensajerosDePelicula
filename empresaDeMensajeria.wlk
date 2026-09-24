@@ -75,8 +75,7 @@ object empresaDeMensajeria {
     }
 
     method paquetePendienteMásCaro() {
-        var paqueteMásCaroAlMomento = 0
-        paquetesPendientes.forEach({ unPaquete => paqueteMásCaroAlMomento = paqueteMásCaroAlMomento.max(unPaquete.precio()) })
-        return paquetesPendientes.findOrElse({ unPaquete => unPaquete.precio() == paqueteMásCaroAlMomento }, { paquetesPendientes.anyOne() })
+        const precioDelPaquetePendienteMasCaro = paquetesPendientes.map({ unPaquete => unPaquete.precio() }).max()
+        return paquetesPendientes.find({ unPaquete => unPaquete.precio() == precioDelPaquetePendienteMasCaro })
     }
 }
