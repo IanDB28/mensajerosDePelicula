@@ -4,6 +4,7 @@ object paquete {
 	var precio = 50
 	var estaPago = false
 	var destino = puenteDeBrooklyn
+	var entregado = false
 
 	method precio() {
 		return precio
@@ -25,10 +26,14 @@ object paquete {
 	method puedeSerEntregadoPor(unaPersonaMensajera) {
 		return self.puedeSerEntregado() && destino.dejaPasarA(unaPersonaMensajera)
 	}
+	method serEntregado() {
+		entregado = true
+	}
 }
 
 object paquetito {
 	var destino = puenteDeBrooklyn
+	var entregado = false
 
 	method precio() {
 		return 0
@@ -40,11 +45,15 @@ object paquetito {
 	method puedeSerEntregadoPor(unaPersonaMensajera) {
 		return true
 	}
+	method serEntregado() {
+		entregado = true
+	}
 }
 
 object paquetonViajero {
 	const listaDeDestinos = []
 	var cantidadPagada = 0
+	var entregado = false
 
 	method precio() {
 		return listaDeDestinos.size() * 100
@@ -65,12 +74,16 @@ object paquetonViajero {
 	method puedeSerEntregadoPor(unaPersonaMensajera) {
 		return self.puedeSerEntregado() && listaDeDestinos.all{ destino => destino.dejaPasarA(unaPersonaMensajera)}
 	}
+	method serEntregado() {
+		entregado = true
+	}
 }
 
 object paquetote {
 	var precio = 200
 	var estaPago = false
 	var destino = puenteDeBrooklyn
+	var entregado = false
 
 	method precio() {
 		return precio
@@ -91,5 +104,8 @@ object paquetote {
 	}
 	method puedeSerEntregadoPor(unaPersonaMensajera) {
 		return self.puedeSerEntregado() && destino.dejaPasarA(unaPersonaMensajera)
+	}
+	method serEntregado() {
+		entregado = true
 	}
 }

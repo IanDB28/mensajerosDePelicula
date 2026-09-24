@@ -10,6 +10,7 @@ object jeanGray {
         return true
     }
     method enviar(unPaquete) {
+        unPaquete.serEntregado()
     }
 }
 
@@ -27,6 +28,7 @@ object neo {
         tieneCreditoEnElCelular = false
     }
     method enviar(unPaquete) {
+        unPaquete.serEntregado()
     }
 }
 
@@ -50,6 +52,7 @@ object saraConnor {
         vehiculoActual = nuevoVehiculo
     }
     method enviar(unPaquete) {
+        unPaquete.serEntregado()
     }
 }
 
@@ -63,5 +66,6 @@ object spiderman {
         return false
     }
     method enviar(unPaquete) {
+        unPaquete.serEntregado()
     }
 }
