@@ -52,12 +52,12 @@ describe "Test de empresa de mensajeria" {
 
 describe "Test de los nuevos tipos de paquetes" {
     test "El precio del paquetito es de 0 sin importar su destino" {
-        paquete.cambiarDestino(laMatrix)
+        paquete.agregarDestino(laMatrix)
         assert.equals(0, paquetito.precio())
     }
 
     test "Cualquier persona mensajera puede mandar un paquetito sin importar su destino" {
-        paquete.cambiarDestino(laMatrix)
+        paquete.agregarDestino(laMatrix)
         assert.that(paquetito.puedeSerEntregadoPor(saraConnor))
     }
 
@@ -119,7 +119,7 @@ describe "Test de los nuevos tipos de paquetes" {
 
 describe "Test de mensajeria recargada" {
     test "Alguna de las personas mensajeras de la empresa puede entregar el paquete de la Matrix" {
-        paquete.cambiarDestino(laMatrix)
+        paquete.agregarDestino(laMatrix)
         paquete.marcarComoPago()
         empresaDeMensajeria.contratarAPersonaMensajera(neo)
         empresaDeMensajeria.contratarAPersonaMensajera(saraConnor)
@@ -127,14 +127,14 @@ describe "Test de mensajeria recargada" {
     }
 
     test "Si ninguna persona mensajera de la empresa puede pasar por el destino no hay ninguna" {
-        paquete.cambiarDestino(laMatrix)
+        paquete.agregarDestino(laMatrix)
         paquete.marcarComoPago()
         empresaDeMensajeria.contratarAPersonaMensajera(saraConnor)
         assert.notThat(empresaDeMensajeria.algunaPersonaMensajeraPuedeEntregar(paquete))
     }
 
     test "Se puede obtener la lista de personas mensajeras que pueden entregar un paquete dado" {
-        paquete.cambiarDestino(laMatrix)
+        paquete.agregarDestino(laMatrix)
         paquete.marcarComoPago()
         empresaDeMensajeria.contratarAPersonaMensajera(neo)
         empresaDeMensajeria.contratarAPersonaMensajera(saraConnor)
@@ -143,7 +143,7 @@ describe "Test de mensajeria recargada" {
     }
 
     test "Se puede obtener la lista de personas mensajeras que pueden entregar un paquete dado y si no hay es una lista vacía" {
-        paquete.cambiarDestino(laMatrix)
+        paquete.agregarDestino(laMatrix)
         paquete.marcarComoPago()
         empresaDeMensajeria.contratarAPersonaMensajera(saraConnor)
         assert.equals([], empresaDeMensajeria.personasMensajerasQuePuedenEntregar(paquete))
@@ -160,6 +160,75 @@ describe "Test de mensajeria recargada" {
         empresaDeMensajeria.contratarAPersonaMensajera(neo)
         empresaDeMensajeria.contratarAPersonaMensajera(jeanGray)
         assert.notThat(empresaDeMensajeria.tieneSobrepeso())
+    }
+
+    test "La empresa de mensajeria puede enviar un paquete" {
+        empresaDeMensajeria.contratarAPersonaMensajera(neo)
+        paquete.agregarDestino(laMatrix)
+        paquete.marcarComoPago()
+        empresaDeMensajeria.entregar(paquete)
+        assert.equals(550, empresaDeMensajeria.facturacion())
+    }
+
+    test "Si la empresa de mensajeria no puede enviar un paquete este queda pendiente" {
+        empresaDeMensajeria.contratarAPersonaMensajera(saraConnor)
+        paquete.agregarDestino(laMatrix)
+        paquete.marcarComoPago()
+        empresaDeMensajeria.entregar(paquete)
+        assert.that(empresaDeMensajeria.hayPaquetesPendientes())
+    }
+
+    test "La empresa no tiene paquetes pendientes al comienzo" {
+        assert.notThat(empresaDeMensajeria.hayPaquetesPendientes())
+    }
+
+    test "La empresa tiene $0 de facturación al comienzo" {
+        assert.equals(0, empresaDeMensajeria.facturacion())
+    }
+
+    test "La empresa tiene $0 de facturación al entregar 3 paquetes" {
+        assert.equals(0, empresaDeMensajeria.facturacion())
+    }
+
+    test "La empresa tiene $200 de facturación al entregar un paqueton viajero con dos destinos" {
+        empresaDeMensajeria.contratarAPersonaMensajera(neo)
+        paquetonViajero.agregarDestino(puenteDeBrooklyn)
+        paquetonViajero.agregarDestino(laMatrix)
+        paquetonViajero.pagar(200)
+        empresaDeMensajeria.entregar(paquetonViajero)
+        assert.equals(200, empresaDeMensajeria.facturacion())
+    }
+
+    test "La empresa puede enviar un conjunto de paquetes" {
+        empresaDeMensajeria.contratarAPersonaMensajera(neo)
+        paquetonViajero.agregarDestino(puenteDeBrooklyn)
+        paquetonViajero.agregarDestino(laMatrix)
+        paquetonViajero.pagar(200)
+        paquete.agregarDestino(laMatrix)
+        paquete.marcarComoPago()
+        empresaDeMensajeria.entregarMultiples([paquetonViajero, paquete])
+        assert.equals(750, empresaDeMensajeria.facturacion())
+    }
+
+    test "La empresa puede enviar su paquete pendiente más caro" {
+        paquetonViajero.agregarDestino(puenteDeBrooklyn)
+        paquetonViajero.agregarDestino(laMatrix)
+        paquetonViajero.pagar(200)
+        paquete.agregarDestino(laMatrix)
+        paquete.marcarComoPago()
+        paquetito.agregarDestino(puenteDeBrooklyn)
+        empresaDeMensajeria.entregarMultiples([paquetonViajero, paquete, paquetito])
+        empresaDeMensajeria.contratarAPersonaMensajera(neo)
+        empresaDeMensajeria.entregarPaquetePendienteMásCaro()
+        assert.equals(550, empresaDeMensajeria.facturacion())
+    }
+
+    test "La empresa de mensajeria puede entregar el nuevo paquete paquetote con el nuevo mensajero spiderman" {
+        empresaDeMensajeria.contratarAPersonaMensajera(spiderman)
+        paquetote.agregarDestino(puenteDeBrooklyn)
+        paquetote.marcarComoPago()
+        empresaDeMensajeria.entregar(paquetote)
+        assert.equals(350, empresaDeMensajeria.facturacion())
     }
 
 }

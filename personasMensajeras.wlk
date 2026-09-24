@@ -9,6 +9,8 @@ object jeanGray {
     method puedeLlamar() {
         return true
     }
+    method enviar(unPaquete) {
+    }
 }
 
 object neo {
@@ -23,6 +25,8 @@ object neo {
     }
     method agotarCreditoDelCelular() {
         tieneCreditoEnElCelular = false
+    }
+    method enviar(unPaquete) {
     }
 }
 
@@ -44,5 +48,20 @@ object saraConnor {
     }
     method cambiarVehiculo(nuevoVehiculo) {
         vehiculoActual = nuevoVehiculo
+    }
+    method enviar(unPaquete) {
+    }
+}
+
+object spiderman {
+    const peso = 0 // como viaja con sus telaraños no tiene peso
+
+    method peso() {
+        return peso
+    }
+    method puedeLlamar() {
+        return false
+    }
+    method enviar(unPaquete) {
     }
 }

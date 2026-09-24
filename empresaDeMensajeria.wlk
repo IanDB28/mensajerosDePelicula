@@ -1,5 +1,7 @@
 object empresaDeMensajeria {
     const listaDePersonasMensajeras = []
+    var totalGanado = 0
+    const paquetesPendientes = []
     
     method contratarAPersonaMensajera(unaPersonaMensajera) {
         listaDePersonasMensajeras.add(unaPersonaMensajera)
@@ -42,5 +44,39 @@ object empresaDeMensajeria {
         return pesoPromedio > 500
     }
 
+    method entregar(unPaquete) {
+        if (self.algunaPersonaMensajeraPuedeEntregar(unPaquete)) {
+            self.personasMensajerasQuePuedenEntregar(unPaquete).anyOne().enviar(unPaquete)
+            paquetesPendientes.remove(unPaquete)
+            totalGanado += unPaquete.precio()
+        } else {
+            self.agregarComoPendiente(unPaquete)
+        }
+    }
 
+    method facturacion() {
+        return totalGanado
+    }
+
+    method agregarComoPendiente(unPaquete) {
+        paquetesPendientes.add(unPaquete)
+    }
+
+    method hayPaquetesPendientes() {
+        return not paquetesPendientes.isEmpty()
+    }
+
+    method entregarMultiples(unConjuntoDePaquetes) {
+        unConjuntoDePaquetes.forEach({ unPaquete => self.entregar(unPaquete) })
+    }
+
+    method entregarPaquetePendienteMásCaro() {
+        self.entregar(self.paquetePendienteMásCaro())
+    }
+
+    method paquetePendienteMásCaro() {
+        var paqueteMásCaroAlMomento = 0
+        paquetesPendientes.forEach({ unPaquete => paqueteMásCaroAlMomento = paqueteMásCaroAlMomento.max(unPaquete.precio()) })
+        return paquetesPendientes.findOrElse({ unPaquete => unPaquete.precio() == paqueteMásCaroAlMomento }, { paquetesPendientes.anyOne() })
+    }
 }

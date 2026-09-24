@@ -9,8 +9,8 @@ describe "Test de paquete" {
     }
 
     test "El precio del paquete es de 500 al cambiar su destino a la Matrix" {
-        paquete.cambiarDestino(laMatrix)
-        assert.equals(500, paquete.precio())
+        paquete.agregarDestino(laMatrix)
+        assert.equals(550, paquete.precio())
     }
 
     test "Al inicio el paquete no está pago" {
@@ -34,18 +34,18 @@ describe "Test de paquete" {
 
 describe "Test de entregas de paquetes" {
     test "Si el paquete no está pago, no puede ser llevado por Neo a la Matrix" {
-        paquete.cambiarDestino(laMatrix)
+        paquete.agregarDestino(laMatrix)
         assert.notThat(paquete.puedeSerEntregadoPor(neo))
     }
 
     test "Si el paquete está pago, puede ser llevado por Neo a la Matrix" {
-        paquete.cambiarDestino(laMatrix)
+        paquete.agregarDestino(laMatrix)
         paquete.marcarComoPago()
         assert.that(paquete.puedeSerEntregadoPor(neo))
     }
 
     test "Si el paquete está pago, puede ser llevado por Jean a la Matrix" {
-        paquete.cambiarDestino(laMatrix)
+        paquete.agregarDestino(laMatrix)
         paquete.marcarComoPago()
         assert.that(paquete.puedeSerEntregadoPor(jeanGray))
     }

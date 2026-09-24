@@ -12,9 +12,9 @@ object paquete {
 		return estaPago
 	}
 
-	method cambiarDestino(destinoNuevo) {
+	method agregarDestino(destinoNuevo) {
 		destino = destinoNuevo
-		precio = destinoNuevo.costoDeEnvio()
+		precio += destinoNuevo.costoDeEnvio()
 	}
 	method marcarComoPago() {
 		estaPago = true
@@ -34,7 +34,7 @@ object paquetito {
 		return 0
 	}
 
-	method cambiarDestino(destinoNuevo) {
+	method agregarDestino(destinoNuevo) {
 		destino = destinoNuevo
 	}
 	method puedeSerEntregadoPor(unaPersonaMensajera) {
@@ -64,5 +64,32 @@ object paquetonViajero {
 	}
 	method puedeSerEntregadoPor(unaPersonaMensajera) {
 		return self.puedeSerEntregado() && listaDeDestinos.all{ destino => destino.dejaPasarA(unaPersonaMensajera)}
+	}
+}
+
+object paquetote {
+	var precio = 200
+	var estaPago = false
+	var destino = puenteDeBrooklyn
+
+	method precio() {
+		return precio
+	}
+	method estaPago() {
+		return estaPago
+	}
+
+	method agregarDestino(destinoNuevo) {
+		destino = destinoNuevo
+		precio += destinoNuevo.costoDeEnvio()
+	}
+	method marcarComoPago() {
+		estaPago = true
+	}
+	method puedeSerEntregado() {
+		return estaPago
+	}
+	method puedeSerEntregadoPor(unaPersonaMensajera) {
+		return self.puedeSerEntregado() && destino.dejaPasarA(unaPersonaMensajera)
 	}
 }
