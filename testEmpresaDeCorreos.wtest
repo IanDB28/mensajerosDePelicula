@@ -1,0 +1,126 @@
+import vehiculos.*
+import personasMensajeras.*
+import paquetes.*
+import lugares.*
+
+describe "Test de paquete" {
+    test "Al inicio el precio del paquete es de 50" {
+        assert.equals(50, paquete.precio())
+    }
+
+    test "El precio del paquete es de 500 al cambiar su destino a la Matrix" {
+        paquete.agregarDestino(laMatrix)
+        assert.equals(550, paquete.precio())
+    }
+
+    test "Al inicio el paquete no está pago" {
+        assert.notThat(paquete.estaPago())
+    }
+
+    test "Al marcar el paquete como pago, este queda pago" {
+        paquete.marcarComoPago()
+        assert.that(paquete.estaPago())
+    }
+
+    test "Si el paquete no está pago no puede ser entregado" {
+        assert.notThat(paquete.puedeSerEntregado())
+    }
+
+    test "Si el paquete está pago puede ser entregado" {
+        paquete.marcarComoPago()
+        assert.that(paquete.puedeSerEntregado())
+    }
+}
+
+describe "Test de entregas de paquetes" {
+    test "Si el paquete no está pago, no puede ser llevado por Neo a la Matrix" {
+        paquete.agregarDestino(laMatrix)
+        assert.notThat(paquete.puedeSerEntregadoPor(neo))
+    }
+
+    test "Si el paquete está pago, puede ser llevado por Neo a la Matrix" {
+        paquete.agregarDestino(laMatrix)
+        paquete.marcarComoPago()
+        assert.that(paquete.puedeSerEntregadoPor(neo))
+    }
+
+    test "Si el paquete está pago, puede ser llevado por Jean a la Matrix" {
+        paquete.agregarDestino(laMatrix)
+        paquete.marcarComoPago()
+        assert.that(paquete.puedeSerEntregadoPor(jeanGray))
+    }
+
+    test "Si el paquete está pago, puede ser llevado por Sara al puente de Brooklyn" {
+        paquete.marcarComoPago()
+        assert.that(paquete.puedeSerEntregadoPor(saraConnor))
+    }
+
+    test "El paquete que está pago no puede ser llevado por Sara (quien pesa 70kg) al puente de Brooklyn si utiliza un camión con un acoplado" {
+        paquete.marcarComoPago()
+        saraConnor.cambiarPesoPropio(70)
+        saraConnor.cambiarVehiculo(camion)
+        camion.agregarAcoplado()
+        assert.notThat(paquete.puedeSerEntregadoPor(saraConnor))
+    }
+
+    test "El paquete que está pago puede ser llevado por Sara (quien pesa 70kg) al puente de Brooklyn si utiliza un camión sin acoplado" {
+        paquete.marcarComoPago()
+        saraConnor.cambiarPesoPropio(70)
+        saraConnor.cambiarVehiculo(camion)
+        assert.that(paquete.puedeSerEntregadoPor(saraConnor))
+    }
+
+    test "El paquete que está pago puede ser llevado por Sara (quien pesa 70kg) al puente de Brooklyn si utiliza una moto" {
+        paquete.marcarComoPago()
+        saraConnor.cambiarPesoPropio(70)
+        saraConnor.cambiarVehiculo(moto)
+        assert.that(paquete.puedeSerEntregadoPor(saraConnor))
+    }
+}
+
+describe "Test de personas mensajeras" {
+    test "Neo no puede llamar si se quedó sin credito en el celular" {
+        neo.agotarCreditoDelCelular()
+        assert.notThat(neo.puedeLlamar())
+    }
+    
+    test "La matrix no deja entrar a Neo si se quedó sin credito en el celular porque no puede llamar" {
+        neo.agotarCreditoDelCelular()
+        assert.notThat(laMatrix.dejaPasarA(neo))
+    }
+
+    test "Al principio Sara Connor tiene un peso propio de 65 kilos" {
+        assert.equals(65, saraConnor.pesoPropio())
+    }
+
+    test "Sara Connor con su moto pesa 165 kilos" {
+        assert.equals(165, saraConnor.peso())
+    }
+
+    test "Si Sara Connor tiene un peso propio de 75 kilos, con su moto pesa 175 kilos" {
+        saraConnor.cambiarPesoPropio(75)
+        assert.equals(175, saraConnor.peso())
+    }
+
+    test "Si Sara Connor tiene un peso propio de 72 kilos, con su camion pesa 572 kilos" {
+        saraConnor.cambiarPesoPropio(72)
+        saraConnor.cambiarVehiculo(camion)
+        assert.equals(572, saraConnor.peso())
+    }
+
+    test "Si Sara Connor tiene un peso propio de 72 kilos, con su camion que tiene 2 acoplados pesa 1572 kilos" {
+        saraConnor.cambiarPesoPropio(72)
+        saraConnor.cambiarVehiculo(camion)
+        camion.agregarAcoplado()
+        camion.agregarAcoplado()
+        assert.equals(1572, saraConnor.peso())
+    }
+
+    test "Sara Connor nunca puede llamar" {
+        assert.notThat(saraConnor.puedeLlamar())
+    }
+
+    test "Jean Gray siempre puede llamar" {
+        assert.that(jeanGray.puedeLlamar())
+    }
+}

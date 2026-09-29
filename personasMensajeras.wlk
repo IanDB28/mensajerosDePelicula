@@ -1,0 +1,71 @@
+import vehiculos.*
+
+object jeanGray {
+    const peso = 65
+
+    method peso() {
+        return peso
+    }
+    method puedeLlamar() {
+        return true
+    }
+    method enviar(unPaquete) {
+        unPaquete.serEntregado()
+    }
+}
+
+object neo {
+    const peso = 0
+    var tieneCreditoEnElCelular = true
+
+    method peso() {
+        return peso
+    }
+    method puedeLlamar() {
+        return tieneCreditoEnElCelular
+    }
+    method agotarCreditoDelCelular() {
+        tieneCreditoEnElCelular = false
+    }
+    method enviar(unPaquete) {
+        unPaquete.serEntregado()
+    }
+}
+
+object saraConnor {
+    var peso = 65
+    var vehiculoActual = moto
+    
+    method pesoPropio() {
+        return peso
+    }
+    method peso() {
+        return peso + vehiculoActual.peso() 
+    }
+    method puedeLlamar() {
+        return false
+    }
+    method cambiarPesoPropio(nuevoPeso) {
+        peso = nuevoPeso
+    }
+    method cambiarVehiculo(nuevoVehiculo) {
+        vehiculoActual = nuevoVehiculo
+    }
+    method enviar(unPaquete) {
+        unPaquete.serEntregado()
+    }
+}
+
+object spiderman {
+    const peso = 0 // como viaja con sus telaraños no tiene peso
+
+    method peso() {
+        return peso
+    }
+    method puedeLlamar() {
+        return false
+    }
+    method enviar(unPaquete) {
+        unPaquete.serEntregado()
+    }
+}
